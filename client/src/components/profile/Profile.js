@@ -15,7 +15,6 @@ export class Profile extends Component {
         return (
             <div>
                 Profile
-       
             </div>
         )
     }

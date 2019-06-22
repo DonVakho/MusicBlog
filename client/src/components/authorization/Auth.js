@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import { GET_AUTHORIZARION } from '../../queries/queries'
 import AuthorizationMessage from './Authorization-message'
+import LoginInput from '../../styled-components/LoginInput'
+import LoginForm from '../../styled-components/LoginForm'
+import Button from '../../styled-components/Button'
 import StateHolder from './StateHolder'
 
 class Auth extends Component {
@@ -37,7 +40,8 @@ class Auth extends Component {
             <ApolloConsumer>
                 {client => (
                     <>
-                        <form onSubmit={async (e) => {
+                        <Button onClick={()=>{this.props.history.push('/')}}>Back</Button>
+                        <LoginForm onSubmit={async (e) => {
                             e.preventDefault()
                             const { data } = await client.query({
                                 query: GET_AUTHORIZARION,
@@ -49,12 +53,12 @@ class Auth extends Component {
                             this.submit(data);
                         }}>
                             <label> Email: </label>
-                            <input type="text" name="email" onChange={(e) => this.inputChange(e)} value={this.state.email} />
+                            <LoginInput type="text" name="email" onChange={(e) => this.inputChange(e)} value={this.state.email} />
                             <label>Password: </label>
-                            <input type="password" name="password" onChange={e => this.inputChange(e)} value={this.state.password} />
-                            <button type="submit">Submit</button>
-                        </form>
-                        <AuthorizationMessage alreadyTried={this.state.alreadyTried} />
+                            <LoginInput type="password" name="password" onChange={e => this.inputChange(e)} value={this.state.password} />
+                            <Button submit type="submit">Submit</Button>
+                            <AuthorizationMessage alreadyTried={this.state.alreadyTried} />
+                        </LoginForm>
                     </>
                 )}
             </ApolloConsumer>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './Home'
 import Auth from './authorization/Auth'
+import Register from '../components/registration/Register'
 import Profile from './profile/Profile'
 import ProtectedRoute from '../protected.route'
 import { ApolloProvider } from 'react-apollo'
@@ -25,7 +26,8 @@ function App() {
             <ApolloProvider client={client}>
                 <BrowserRouter>
                     <Switch>
-                        <Route path="/login" component={Auth} />
+                        <Route exact path="/login" component={Auth} />
+                        <Route exact path="/register" component={Register}/>
                         <ProtectedRoute path="/profile" component={Profile} />
                         <Route exact path="/" component={Home} />
                     </Switch>

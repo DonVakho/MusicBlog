@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Button from '../styled-components/Button'
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -6,8 +7,9 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <button onClick={() => { this.props.history.push('/login') }}>Login</button>
-                <button>Register</button>
+                <h1>Welcome to the React app</h1>
+                <Button onClick={() => { this.props.history.push('/login') }}>Login</Button>
+                <Button onClick={() => {this.props.history.push('/register')}}>Register</Button>
             </div>
         )
     }

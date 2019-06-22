@@ -12,10 +12,17 @@ const GET_USERS = gql`{
         lastName
     }
 }`
+const GET_USER = gql`
+    query($email: String!){
+      user(email: $email){
+        id
+      }
+    }
+`
 const GET_AUTHORIZARION = gql`
     query getConfirmation($email: String!, $password: String!){
     userConf(email: $email, password:$password){
-        firstName
+        id
     }
 }`
 const ADD_COMMENT = gql`
@@ -25,9 +32,18 @@ const ADD_COMMENT = gql`
     }
   }
 `
+const ADD_USER = gql`
+    mutation($firstName: String!, $lastName: String!, $email: String!, $password: String!){
+    addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password){
+      id
+    }
+  }
+`
 export {
     GET_POSTS,
+    GET_USER,
     GET_USERS,
     GET_AUTHORIZARION,
-    ADD_COMMENT
+    ADD_COMMENT,
+    ADD_USER
 }
