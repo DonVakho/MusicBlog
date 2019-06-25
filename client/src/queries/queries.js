@@ -33,8 +33,16 @@ const GET_PROFILE = gql`
           description
           comments{
             id,
-            text
+            text,
+            user{
+              firstName,
+              lastName
+            }
+            created,
+            modified
           }
+          created,
+          modified
         }
       }
     }
