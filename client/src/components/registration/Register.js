@@ -1,10 +1,15 @@
+//react imports
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+
+//my components
 import { ADD_USER, GET_USER } from '../../queries/queries'
+import RegistrationMessage from './RegistrationMessage'
+
+//styled-components
 import LoginInput from '../../styled-components/LoginInput'
 import LoginForm from '../../styled-components/LoginForm'
 import Button from '../../styled-components/Button'
-import RegistrationMessage from './RegistrationMessage'
 
 export default class Register extends Component {
     constructor(props) {
@@ -68,7 +73,7 @@ export default class Register extends Component {
                         <Button submit onClick={() => { this.props.history.push('/login') }}>Login</Button>
                         <LoginForm id="registrationForm" onSubmit={async (e) => {
                             e.preventDefault();
-                            if (this.state.password != this.state.rPassword) {
+                            if (this.state.password !== this.state.rPassword) {
                                 this.submit(false, null);
                             }
                             else {

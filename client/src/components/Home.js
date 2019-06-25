@@ -1,9 +1,10 @@
+//react imports
 import React, { Component } from 'react'
+
+//styled-components
 import Button from '../styled-components/Button'
+
 class Home extends Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
         return (
             <div>

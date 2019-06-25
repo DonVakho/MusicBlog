@@ -1,5 +1,5 @@
 import React from 'react'
-import StateHolder from './components/authorization/StateHolder'
+import StateHolder from './StateHolder'
 import { Route, Redirect } from 'react-router-dom'
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     return (

@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost'
+
 const GET_POSTS = gql`{
     posts{
         title,
@@ -19,10 +20,29 @@ const GET_USER = gql`
       }
     }
 `
+const GET_PROFILE = gql`
+    query($email: String!){
+      user(email: $email){
+        firstName,
+        lastName,
+        created,
+        modified,
+        posts{
+          id,
+          title,
+          description
+          comments{
+            id,
+            text
+          }
+        }
+      }
+    }
+`
 const GET_AUTHORIZARION = gql`
     query getConfirmation($email: String!, $password: String!){
     userConf(email: $email, password:$password){
-        id
+        email
     }
 }`
 const ADD_COMMENT = gql`
@@ -43,6 +63,7 @@ export {
     GET_POSTS,
     GET_USER,
     GET_USERS,
+    GET_PROFILE,
     GET_AUTHORIZARION,
     ADD_COMMENT,
     ADD_USER

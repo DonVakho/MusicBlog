@@ -1,11 +1,16 @@
+//react imports
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+
+//my components
 import { GET_AUTHORIZARION } from '../../queries/queries'
 import AuthorizationMessage from './Authorization-message'
+import StateHolder from '../StateHolder'
+
+//styled-components
 import LoginInput from '../../styled-components/LoginInput'
 import LoginForm from '../../styled-components/LoginForm'
 import Button from '../../styled-components/Button'
-import StateHolder from './StateHolder'
 
 class Auth extends Component {
     constructor(props) {
@@ -32,6 +37,7 @@ class Auth extends Component {
             })
         else {
             StateHolder.login()
+            StateHolder.setEmail(queryData.userConf.email)
             this.props.history.push('/profile')
         }
     }
@@ -40,7 +46,7 @@ class Auth extends Component {
             <ApolloConsumer>
                 {client => (
                     <>
-                        <Button onClick={()=>{this.props.history.push('/')}}>Back</Button>
+                        <Button onClick={() => { this.props.history.push('/') }}>Back</Button>
                         <LoginForm onSubmit={async (e) => {
                             e.preventDefault()
                             const { data } = await client.query({
