@@ -46,7 +46,6 @@ class Auth extends Component {
             <ApolloConsumer>
                 {client => (
                     <>
-                        <Button onClick={() => { this.props.history.push('/') }}>Back</Button>
                         <LoginForm onSubmit={async (e) => {
                             console.log(this.props)
                             e.preventDefault()
