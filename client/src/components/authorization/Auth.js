@@ -48,6 +48,7 @@ class Auth extends Component {
                     <>
                         <Button onClick={() => { this.props.history.push('/') }}>Back</Button>
                         <LoginForm onSubmit={async (e) => {
+                            console.log(this.props)
                             e.preventDefault()
                             const { data } = await client.query({
                                 query: GET_AUTHORIZARION,
