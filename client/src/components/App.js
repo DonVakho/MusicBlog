@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Navbar, Nav, FormControl, Button, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Footer from './Footer'
+
 
 ////my components
 import { mapStateToProps, mapDispatchToProps } from '../redux/connectMaps'
@@ -13,7 +13,7 @@ class App extends Component {
         return (
             <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">{this.props.user.userName}</Navbar.Brand>
+                <Navbar.Brand href="#home">{this.props.user.firstName}</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/login">Settings</Nav.Link>

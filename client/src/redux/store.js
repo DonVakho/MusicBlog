@@ -1,9 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import {loginReducer} from './reducers'
+import { loginReducer, postReducer } from './reducers'
 import thunk from 'redux-thunk';
 
 export default createStore(
-    combineReducers({user: loginReducer }),
+    combineReducers({
+        user: loginReducer,
+        posts: postReducer
+    }),
     {},
     applyMiddleware(thunk)
 );

@@ -1,15 +1,19 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 export default function Posts({ post }) {
     return <>
-        <Card style={{ width: '18rem' }}>
-            <Card.Header>Posted on: {post.created}, last modified on: {post.modified}</Card.Header>
-            <Card.Body>
-                <Card.Title>{post.title}</Card.Title>
-                <Card.Text>{post.description}</Card.Text>
-                <Button variant="primary">Comment</Button>
-            </Card.Body>
-        </Card>
+        <Jumbotron>
+            <Container>
+                <h1>{post.title}</h1>
+                <h4>{post.description}</h4>
+                <hr />
+                <p>Created on: {post.created.substring(0, post.created.indexOf('G'))} <br/>
+                    {post.modified !== post.created ? 'Last Modified:' + post.modified.substring(0, post.created.indexOf('G')) :
+                        'Not Modified'}</p>
+                <Button>Comment</Button>
+            </Container>
+        </Jumbotron>
     </>
 }

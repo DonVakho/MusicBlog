@@ -16,7 +16,7 @@ import Home from './components/Home'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost'
 import { HttpLink } from 'apollo-link-http';
-import FooterPage from './components/Footer'
+
 
 //setup apollo
 const cache = new InMemoryCache();
@@ -43,5 +43,4 @@ ReactDOM.render(
                 </Switch>
             </Provider>
         </BrowserRouter>
-        <FooterPage />
     </ApolloProvider>, rootElement);

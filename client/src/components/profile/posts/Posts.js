@@ -1,17 +1,10 @@
 import React from 'react'
 import FormatPost from './FormatPost'
-import { Container, Row } from 'react-bootstrap';
 
-export default function Posts({ posts, comments }) {
+export default function Posts({ posts }) {
     return <>
-        <div>
-            <Container>
-                <Row>
-                    {posts.map(post => (
-                        <FormatPost key={post.id} post={post} />
-                    ))}
-                </Row>
-            </Container>
-        </div>
+        {posts.map(post => (
+            <FormatPost key={post.id} post={post} />
+        ))}
     </>
 }

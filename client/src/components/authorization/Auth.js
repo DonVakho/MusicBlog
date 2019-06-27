@@ -1,11 +1,14 @@
 //react imports
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+import { connect } from 'react-redux'
+
 
 //my components
 import { GET_AUTHORIZARION } from '../../queries/queries'
 import AuthorizationMessage from './Authorization-message'
 import StateHolder from '../StateHolder'
+import { mapStateToProps, mapDispatchToProps } from '../../redux/connectMaps'
 
 //styled-components
 import LoginInput from '../../styled-components/LoginInput'
@@ -36,6 +39,13 @@ class Auth extends Component {
                 alreadyTried: true
             })
         else {
+            this.props.LOG_IN_ACTION({
+                firstName: queryData.userConf.firstName,
+                lastName: queryData.userConf.lastName, 
+                id: queryData.userConf.id,
+                created: queryData.userConf.created,
+                modified: queryData.userConf.modified
+            })
             StateHolder.login()
             StateHolder.setEmail(queryData.userConf.email)
             this.props.history.push('/profile')
@@ -71,4 +81,4 @@ class Auth extends Component {
         )
     }
 }
-export default Auth
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)

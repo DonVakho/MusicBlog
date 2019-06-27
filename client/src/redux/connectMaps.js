@@ -1,8 +1,15 @@
-import {LOG_IN_ACTION, LOG_OUT_ACTION} from './actions'
+import {
+    LOG_IN_ACTION,
+    LOG_OUT_ACTION,
+    APPEND_POSTS_ACTION,
+    LOAD_POSTS_ACTION,
+    PREPARE_FOR_LOAD_ACTION
+} from './actions'
 
 export const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        posts: state.posts
     }
 }
 
@@ -13,6 +20,15 @@ export const mapDispatchToProps = (dispatch) => {
         },
         LOG_IN_ACTION: (name) => {
             dispatch(LOG_IN_ACTION(name))
+        },
+        LOAD_POSTS_ACTION: (posts) => {
+            dispatch(LOAD_POSTS_ACTION(posts))
+        },
+        APPEND_POSTS_ACTION: (posts) => {
+            dispatch(APPEND_POSTS_ACTION(posts))
+        },
+        PREPARE_FOR_LOAD_ACTION: () => {
+            dispatch(PREPARE_FOR_LOAD_ACTION())
         }
     }
 }

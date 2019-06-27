@@ -8,9 +8,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f2f2f2;
+  background-color: #1d1d1d;
   background-image: url('./assets/background.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
 }
 

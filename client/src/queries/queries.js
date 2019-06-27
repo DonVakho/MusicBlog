@@ -1,10 +1,25 @@
 import { gql } from 'apollo-boost'
 
 const GET_POSTS = gql`{
-    posts{
-        title,
-        description
+  posts{
+    id,
+    title,
+    description,
+    user{
+      firstName,
+      lastName
     }
+    created,
+    modified,
+    comments{
+      created,
+      modified
+      user{
+        firstName,
+        lastName
+      }
+    }
+  }
 }`
 
 const GET_USERS = gql`{
@@ -50,7 +65,12 @@ const GET_PROFILE = gql`
 const GET_AUTHORIZARION = gql`
     query getConfirmation($email: String!, $password: String!){
     userConf(email: $email, password:$password){
-        email
+      email,
+      firstName,
+      lastName,
+      id,
+      created,
+      modified
     }
 }`
 const ADD_COMMENT = gql`
@@ -68,11 +88,11 @@ const ADD_USER = gql`
   }
 `
 export {
-    GET_POSTS,
-    GET_USER,
-    GET_USERS,
-    GET_PROFILE,
-    GET_AUTHORIZARION,
-    ADD_COMMENT,
-    ADD_USER
+  GET_POSTS,
+  GET_USER,
+  GET_USERS,
+  GET_PROFILE,
+  GET_AUTHORIZARION,
+  ADD_COMMENT,
+  ADD_USER
 }
