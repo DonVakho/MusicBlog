@@ -1,14 +1,19 @@
+//General Imorts
 import React from 'react'
-import StateHolder from './StateHolder'
 import { Route, Redirect } from 'react-router-dom'
+
+//Redux Imports
+import { connect } from 'react-redux'
+import { mapStateToProps, mapDispatchToProps } from '../redux/connectMaps'
+
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     return (
         <Route {...rest} render={
             (props) => {
-                if (StateHolder.getStatus()){
+                if (rest.user.loggedIn) {
                     return <Component {...props} />
-                }else{
-                    return <Redirect to = {
+                } else {
+                    return <Redirect to={
                         {
                             pathname: '/login',
                             state: {
@@ -16,9 +21,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
                             }
                         }
                     } />
-                }        
+                }
             }
         } />
     )
 }
-export default ProtectedRoute
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProtectedRoute)

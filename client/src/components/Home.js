@@ -1,24 +1,19 @@
-//react imports
+//General Imports
 import React, { Component } from 'react'
-import Carousel from 'react-bootstrap/Carousel'
-import { } from "../assets/carousel/slide_1.jpg"
-import { connect } from 'react-redux'
 import { Query } from "react-apollo";
+import Carousel from 'react-bootstrap/Carousel'
+
+//Redux Imports
+import { connect } from 'react-redux'
 import { mapStateToProps, mapDispatchToProps } from '../redux/connectMaps'
-import Posts from './profile/posts/Posts'
+
+//*********************************************
+import { GET_POSTS } from '../queries/queries'
+import Posts from '../components/posts/Posts'
 import FooterPage from './Footer'
 
-//styled-components
-import { GET_POSTS } from '../queries/queries'
 
 class Home extends Component {
-    constructor(props) {
-        super(props)
-        this.submit = this.loadPosts.bind(this)
-    }
-    loadPosts(posts) {
-        this.props.LOAD_POSTS_ACTION(posts)
-    }
     render() {
         return (
             <>
@@ -87,19 +82,16 @@ class Home extends Component {
                     </Carousel>
                 </div >
                 <div style={{ paddingLeft: '11%', paddingRight: '5%', paddingTop: '1%', width: '90%' }}>
-                    <div style={{  width: '100%' }}>
-                        <Query query={GET_POSTS}>
-                            {({ loading, error, data }) => {
-                                if (loading) return <h3>...loading</h3>;
-                                if (error) return `Error! ${error}`;
-                                if (!this.props.posts.loaded)
-                                    this.props.LOAD_POSTS_ACTION(data.posts)
-                                return <>
-                                </>
-                            }}
-                        </Query>
-                        <Posts posts={this.props.posts.posts} />
-                    </div>
+                    <Query query={GET_POSTS}>
+                        {({ loading, error, data }) => {
+                            if (loading) return <h3>...loading</h3>;
+                            if (error) return `Error! ${error}`;
+                            if (!this.props.posts.loaded)
+                                this.props.LOAD_POSTS_ACTION(data.posts)
+                            return <></>
+                        }}
+                    </Query>
+                    <Posts posts={this.props.posts.posts} />
                 </div>
                 <FooterPage />
             </>

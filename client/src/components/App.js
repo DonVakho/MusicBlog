@@ -1,34 +1,30 @@
-//react imports
+//General Imports
 import React, { Component } from 'react'
-import { Navbar, Nav, FormControl, Button, Form } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
+
+//Redux Imorts
 import { connect } from 'react-redux'
-
-
-////my components
 import { mapStateToProps, mapDispatchToProps } from '../redux/connectMaps'
+
+//*******************************************
+import ProtectedRoute from './protected.route'
+import Register from './registration/Register'
+import Auth from './authorization/Auth'
+import Profile from './profile/Profile'
+import NavBar from './NavBar'
+import Home from './Home'
 
 class App extends Component {
     render() {
         return (
             <>
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">{this.props.user.firstName}</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/login">Settings</Nav.Link>
-                </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-info">Search</Button>
-                    <Button onClick={() => {
-                        console.log(this.props)
-                        this.props.user.loggedIn ? this.props.LOG_OUT_ACTION() :
-                            this.props.history.push('/login')
-                    }
-                    }>{this.props.user.loggedIn ? 'Logout' : 'Login'}</Button>
-                </Form>
-            </Navbar>
+                <NavBar />
+                <Switch>
+                    <Route exact path="/login" component={Auth} />
+                    <Route exact path="/register" component={Register} />
+                    <ProtectedRoute path="/profile" component={props => <Profile {...props} email={this.props.user.email} />} />
+                    <Route exact path="/" component={Home} />
+                </Switch>
             </>
         );
     }

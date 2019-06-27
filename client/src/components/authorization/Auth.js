@@ -1,19 +1,19 @@
-//react imports
+//General Imports
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+import { Button } from 'react-bootstrap';
+
+//Redux Imports
 import { connect } from 'react-redux'
-
-
-//my components
-import { GET_AUTHORIZARION } from '../../queries/queries'
-import AuthorizationMessage from './Authorization-message'
-import StateHolder from '../StateHolder'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/connectMaps'
 
-//styled-components
+//********************************************************
+import { GET_AUTHORIZARION } from '../../queries/queries'
+import AuthorizationMessage from './Authorization-message'
 import LoginInput from '../../styled-components/LoginInput'
 import LoginForm from '../../styled-components/LoginForm'
-import Button from '../../styled-components/Button'
+import Label from '../../styled-components/Label'
+
 
 class Auth extends Component {
     constructor(props) {
@@ -41,14 +41,14 @@ class Auth extends Component {
         else {
             this.props.LOG_IN_ACTION({
                 firstName: queryData.userConf.firstName,
-                lastName: queryData.userConf.lastName, 
+                lastName: queryData.userConf.lastName,
                 id: queryData.userConf.id,
                 created: queryData.userConf.created,
-                modified: queryData.userConf.modified
+                modified: queryData.userConf.modified,
+                email: queryData.userConf.email
             })
-            StateHolder.login()
-            StateHolder.setEmail(queryData.userConf.email)
             this.props.history.push('/profile')
+
         }
     }
     render() {
@@ -57,7 +57,6 @@ class Auth extends Component {
                 {client => (
                     <>
                         <LoginForm onSubmit={async (e) => {
-                            console.log(this.props)
                             e.preventDefault()
                             const { data } = await client.query({
                                 query: GET_AUTHORIZARION,
@@ -68,11 +67,11 @@ class Auth extends Component {
                             });
                             this.submit(data);
                         }}>
-                            <label> Email: </label>
+                            <Label> Email: </Label>
                             <LoginInput type="text" name="email" onChange={(e) => this.inputChange(e)} value={this.state.email} />
-                            <label>Password: </label>
+                            <Label>Password: </Label>
                             <LoginInput type="password" name="password" onChange={e => this.inputChange(e)} value={this.state.password} />
-                            <Button submit type="submit">Submit</Button>
+                            <Button type="submit">Submit</Button>
                             <AuthorizationMessage alreadyTried={this.state.alreadyTried} />
                         </LoginForm>
                     </>

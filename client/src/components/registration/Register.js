@@ -1,15 +1,14 @@
-//react imports
+//General Imports
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
+import { Button } from 'react-bootstrap';
 
 //my components
 import { ADD_USER, GET_USER } from '../../queries/queries'
 import RegistrationMessage from './RegistrationMessage'
-
-//styled-components
 import LoginInput from '../../styled-components/LoginInput'
 import LoginForm from '../../styled-components/LoginForm'
-import Button from '../../styled-components/Button'
+import Label from '../../styled-components/Label';
 
 export default class Register extends Component {
     constructor(props) {
@@ -69,8 +68,6 @@ export default class Register extends Component {
             <ApolloConsumer>
                 {client => (
                     <>
-                        <Button onClick={() => { this.props.history.push('/') }}>Back</Button>
-                        <Button submit onClick={() => { this.props.history.push('/login') }}>Login</Button>
                         <LoginForm id="registrationForm" onSubmit={async (e) => {
                             e.preventDefault();
                             if (this.state.password !== this.state.rPassword) {
@@ -99,15 +96,15 @@ export default class Register extends Component {
                                 }
                             }
                         }}>
-                            <label> First Name: </label>
+                            <Label> First Name: </Label>
                             <LoginInput required type="text" name="firstName" onChange={(e) => this.inputChange(e)} value={this.state.firstName} />
-                            <label>Last Name: </label>
+                            <Label>Last Name: </Label>
                             <LoginInput required type="text" name="lastName" onChange={e => this.inputChange(e)} value={this.state.lastName} />
-                            <label> Email: </label>
+                            <Label> Email: </Label>
                             <LoginInput required type="email" name="email" onChange={(e) => this.inputChange(e)} value={this.state.email} />
-                            <label>Password: </label>
+                            <Label>Password: </Label>
                             <LoginInput required type="password" name="password" onChange={e => this.inputChange(e)} value={this.state.password} />
-                            <label>Confirm Password: </label>
+                            <Label>Confirm Password: </Label>
                             <LoginInput required type="password" name="rPassword" onChange={e => this.inputChange(e)} value={this.state.rPassword} />
                             <Button submit type="submit">Register</Button>
                             <RegistrationMessage alreadyTried={this.state.alreadyTried} valid={this.state.allValid} userExists={this.state.userExists} />

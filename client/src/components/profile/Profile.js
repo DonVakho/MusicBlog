@@ -1,30 +1,24 @@
-//react imports
+//General Imports
 import React, { Component } from 'react'
 import { Query } from "react-apollo";
 
-//my components
+//***********************************************
 import { GET_PROFILE } from '../../queries/queries'
-import StateHolder from '../StateHolder'
-import Posts from './posts/Posts'
+import Posts from '../posts/Posts'
+
+//Redux Imports
+import { connect } from 'react-redux'
+import { mapStateToProps, mapDispatchToProps } from '../../redux/connectMaps'
 
 export class Profile extends Component {
-    constructor(props) {
-        super(props)
-        this.logout = this.logout.bind(this)
-    }
-    logout() {
-        StateHolder.logout()
-        this.props.history.push('/login')
-    }
     render() {
         return (
             <>
-                <Query query={GET_PROFILE} variables={{ email: StateHolder.getEmail() }}>
+                <Query query={GET_PROFILE} variables={{ email: this.props.user.email }}>
                     {({ loading, error, data }) => {
                         if (loading) return <h3>...loading</h3>;
                         if (error) return `Error! ${error}`;
                         return <>
-                            {console.log(data)}
                             <Posts posts={data.user.posts} />
                         </>
                     }}
@@ -34,4 +28,4 @@ export class Profile extends Component {
     }
 }
 
-export default Profile
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
