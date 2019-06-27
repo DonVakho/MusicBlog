@@ -7,7 +7,6 @@ mongoose.set('useFindAndModify', false);
 const {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLID,
     GraphQLNonNull,
     GraphQLSchema,
     GraphQLList } = graphql;
@@ -15,7 +14,7 @@ const {
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         email: { type: GraphQLString },
@@ -33,7 +32,7 @@ const UserType = new GraphQLObjectType({
 const PostType = new GraphQLObjectType({
     name: 'Post',
     fields: () => ({
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
         title: { type: GraphQLString },
         description: { type: GraphQLString },
         created: { type: GraphQLString },
@@ -55,7 +54,7 @@ const PostType = new GraphQLObjectType({
 const CommentType = new GraphQLObjectType({
     name: 'Comment',
     fields: () => ({
-        id: { type: GraphQLID },
+        id: { type: GraphQLString },
         text: { type: GraphQLString },
         created: { type: GraphQLString },
         modified: { type: GraphQLString },
@@ -93,14 +92,14 @@ const RootQuery = new GraphQLObjectType({
         },
         post: {
             type: PostType,
-            args: { id: { type: GraphQLID } },
+            args: { id: { type: GraphQLString } },
             resolve(_, args) {
                 return Post.findById(args.id);
             }
         },
         comment: {
             type: CommentType,
-            args: { id: { type: GraphQLID } },
+            args: { id: { type: GraphQLString } },
             resolve(_, args) {
                 return Comment.findById(args.id);
             }
@@ -152,7 +151,7 @@ const Mutation = new GraphQLObjectType({
         updateUser: {
             type: UserType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLID) },
+                id: { type: new GraphQLNonNull(GraphQLString) },
                 firstName: { type: GraphQLString },
                 lastName: { type: GraphQLString },
                 email: { type: GraphQLString },
@@ -170,7 +169,7 @@ const Mutation = new GraphQLObjectType({
         },
         removeUser: {
             type: UserType,
-            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLString) } },
             resolve(_, args) {
                 const removedUser = User.findByIdAndRemove(args.id).exec();
                 if (!removedUser) {
@@ -185,7 +184,7 @@ const Mutation = new GraphQLObjectType({
             args: {
                 title: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: new GraphQLNonNull(GraphQLString) },
-                userid: { type: new GraphQLNonNull(GraphQLID) }
+                userid: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve(_, args) {
                 let post = new Post({
@@ -201,7 +200,7 @@ const Mutation = new GraphQLObjectType({
         updatePost: {
             type: PostType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLID) },
+                id: { type: new GraphQLNonNull(GraphQLString) },
                 title: { type: GraphQLString },
                 description: { type: GraphQLString },
             },
@@ -215,7 +214,7 @@ const Mutation = new GraphQLObjectType({
         },
         removePost: {
             type: PostType,
-            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLString) } },
             resolve(_, args) {
                 const removedPost = Post.findByIdAndRemove(args.id).exec();
                 if (!removedPost) {
@@ -228,8 +227,8 @@ const Mutation = new GraphQLObjectType({
             type: CommentType,
             args: {
                 text: { type: new GraphQLNonNull(GraphQLString) },
-                postid: { type: new GraphQLNonNull(GraphQLID) },
-                userid: { type: new GraphQLNonNull(GraphQLID) }
+                postid: { type: new GraphQLNonNull(GraphQLString) },
+                userid: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve(_, args) {
                 let comment = new Comment({
@@ -245,7 +244,7 @@ const Mutation = new GraphQLObjectType({
         updateComment: {
             type: CommentType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLID) },
+                id: { type: new GraphQLNonNull(GraphQLString) },
                 text: { type: GraphQLString },
             },
             resolve(_, args) {
@@ -257,7 +256,7 @@ const Mutation = new GraphQLObjectType({
         },
         removeComment: {
             type: CommentType,
-            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLString) } },
             resolve(_, args) {
                 const removedComment = Comment.findByIdAndRemove(args.id).exec();
                 if (!removedComment) {

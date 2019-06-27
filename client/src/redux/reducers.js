@@ -43,7 +43,8 @@ export const loginReducer = (state = initialStateUser, action) => {
 const initialStatePost = {
     loaded: false,
     posts: [],
-    length: 0
+    length: 0,
+    filter: ''
 }
 
 export const postReducer = (state = initialStatePost, action) => {
@@ -70,6 +71,12 @@ export const postReducer = (state = initialStatePost, action) => {
                 loaded: false
             }
             break;
+        case 'SEARCH':
+            state = {
+                ...state,
+                filter: action.payload
+            }
+            break
         default:
             return state
     }

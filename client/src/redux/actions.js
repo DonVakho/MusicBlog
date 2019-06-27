@@ -31,3 +31,10 @@ export function PREPARE_FOR_LOAD_ACTION(){
         payload: null
     }
 }
+
+export function SEARCH_ACTION(filter){
+    return{
+        type: 'SEARCH',
+        payload: filter
+    }
+}

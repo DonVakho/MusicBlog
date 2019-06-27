@@ -17,7 +17,7 @@ class Home extends Component {
     render() {
         return (
             <>
-                <div style={{ paddingLeft: '17%', paddingTop: '1%' }}>
+                <div style={{ paddingLeft: '17%', paddingTop: '7%' }}>
                     <Carousel className="d-block w-75">
                         <Carousel.Item>
                             <img
@@ -91,7 +91,16 @@ class Home extends Component {
                             return <></>
                         }}
                     </Query>
-                    <Posts posts={this.props.posts.posts} />
+                    <Posts posts={this.props.posts.posts.filter((post) => {
+                        console.log(post)
+                        if (post.user.firstName.toLowerCase() === this.props.posts.filter.toLowerCase())
+                            return true
+                        if (post.user.lastName.toLowerCase() === this.props.posts.filter.toLowerCase())
+                            return true
+                        if (post.title.toLowerCase().includes(this.props.posts.filter.toLowerCase()))
+                            return true
+                        return false
+                    })} />
                 </div>
                 <FooterPage />
             </>

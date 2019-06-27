@@ -6,12 +6,15 @@ const GET_POSTS = gql`{
     title,
     description,
     user{
+      id,
       firstName,
       lastName
     }
     created,
     modified,
     comments{
+      id,
+      text,
       created,
       modified
       user{
@@ -45,7 +48,12 @@ const GET_PROFILE = gql`
         posts{
           id,
           title,
-          description
+          description,
+          user{
+            id,
+            firstName,
+            lastName
+          }
           comments{
             id,
             text,
@@ -76,7 +84,14 @@ const GET_AUTHORIZARION = gql`
 const ADD_COMMENT = gql`
     mutation($text: String!, $postid: String!, $userid: String!){
     addComment(text: $text, postid: $postid, userid: $userid){
-      text
+      id,
+      text,
+      created,
+      modified,
+      user{
+        firstName,
+        lastName
+      }
     }
   }
 `

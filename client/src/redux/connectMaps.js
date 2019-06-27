@@ -3,7 +3,8 @@ import {
     LOG_OUT_ACTION,
     APPEND_POSTS_ACTION,
     LOAD_POSTS_ACTION,
-    PREPARE_FOR_LOAD_ACTION
+    PREPARE_FOR_LOAD_ACTION,
+    SEARCH_ACTION
 } from './actions'
 
 export const mapStateToProps = (state) => {
@@ -29,6 +30,9 @@ export const mapDispatchToProps = (dispatch) => {
         },
         PREPARE_FOR_LOAD_ACTION: () => {
             dispatch(PREPARE_FOR_LOAD_ACTION())
+        },
+        SEARCH_ACTION: (filter) => {
+            dispatch(SEARCH_ACTION(filter))
         }
     }
 }
