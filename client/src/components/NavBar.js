@@ -25,12 +25,16 @@ class NavBar extends Component {
         return (
             <Navbar bg="dark" variant="dark" fixed="top">
                 <Navbar.Brand onClick={() => {
+                    this.props.PREPARE_FOR_LOAD_ACTION()
                     if (this.props.user.loggedIn)
                         this.props.history.push('/profile')
                 }}>{this.props.user.firstName}
                 </Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link onClick={() => this.props.history.push('/')}>Home</Nav.Link>
+                    <Nav.Link onClick={() => {
+                        this.props.PREPARE_FOR_LOAD_ACTION()
+                        this.props.history.push('/')
+                        }}>Home</Nav.Link>
                     {this.props.user.loggedIn?<Nav.Link onClick={() => this.props.history.push('/settings')}>Settings</Nav.Link>:
                     <></>}
                     {this.props.user.loggedIn?<></>:
@@ -42,6 +46,7 @@ class NavBar extends Component {
                             searchText: ''
                         })
                         this.props.SEARCH_ACTION(this.state.searchText)
+                        this.props.history.push('/')
                         }}>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" 
                     required name="searchText" 
@@ -49,6 +54,7 @@ class NavBar extends Component {
                      />
                     <Button type='submit' variant="outline-info">Search</Button>
                     <Button onClick={() => {
+                        this.props.CLEAR_ACTION()
                         this.props.user.loggedIn ? this.props.LOG_OUT_ACTION() :
                             this.props.history.push('/login')
                     }

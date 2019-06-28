@@ -9,4 +9,5 @@ export default styled.form`
   padding-left: 15%;
   padding-right: 20%;
   opacity: 60%;
+  padding-top: 7%
 `

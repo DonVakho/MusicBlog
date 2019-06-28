@@ -47,7 +47,7 @@ class Auth extends Component {
                 modified: queryData.userConf.modified,
                 email: queryData.userConf.email
             })
-            this.props.history.push('/profile')
+            this.props.history.push('/')
 
         }
     }
@@ -66,7 +66,7 @@ class Auth extends Component {
                                 }
                             });
                             this.submit(data);
-                        }}>
+                        }} >
                             <Label> Email: </Label>
                             <LoginInput type="text" name="email" onChange={(e) => this.inputChange(e)} value={this.state.email} />
                             <Label>Password: </Label>

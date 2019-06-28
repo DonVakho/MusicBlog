@@ -106,7 +106,7 @@ export default class Register extends Component {
                             <LoginInput required type="password" name="password" onChange={e => this.inputChange(e)} value={this.state.password} />
                             <Label>Confirm Password: </Label>
                             <LoginInput required type="password" name="rPassword" onChange={e => this.inputChange(e)} value={this.state.rPassword} />
-                            <Button submit type="submit">Register</Button>
+                            <Button submit='true' type="submit">Register</Button>
                             <RegistrationMessage alreadyTried={this.state.alreadyTried} valid={this.state.allValid} userExists={this.state.userExists} />
                         </LoginForm>
                     </>

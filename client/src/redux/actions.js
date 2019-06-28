@@ -18,10 +18,22 @@ export function LOAD_POSTS_ACTION(posts){
         payload: posts
     }
 }
+export function LOAD_USER_POSTS_ACTION(posts){
+    return{
+        type: 'LOAD_USER_POSTS',
+        payload: posts
+    }
+}
 
 export function APPEND_POSTS_ACTION(posts){
     return{
         type: 'APPEND_POSTS',
+        payload: posts
+    }
+} 
+export function APPEND_USER_POSTS_ACTION(posts){
+    return{
+        type: 'APPEND_USER_POSTS',
         payload: posts
     }
 } 
@@ -36,5 +48,19 @@ export function SEARCH_ACTION(filter){
     return{
         type: 'SEARCH',
         payload: filter
+    }
+}
+
+export function CLEAR_ACTION(){
+    return{
+        type: 'CLEAR',
+        payload: null
+    }
+}
+
+export function DELETE_POST_ACTION(remainingPosts){
+    return{
+        type: 'DELETE_POST',
+        payload: remainingPosts
     }
 }

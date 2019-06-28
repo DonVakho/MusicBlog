@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { ApolloConsumer } from 'react-apollo'
 import {
     Jumbotron,
@@ -15,7 +16,7 @@ import { connect } from 'react-redux'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/connectMaps'
 
 //*********************************************
-import { ADD_COMMENT } from '../../queries/queries'
+import { ADD_COMMENT, REMOVE_POST } from '../../queries/queries'
 
 class Posts extends Component {
     constructor(props) {
@@ -34,19 +35,56 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return <>
-        {console.log(post)}
             <Jumbotron>
                 <Container>
                     <Row>
                         <Col lg={7} md={7}>
                             <div style={{ maxHeight: '400px', overflowY: 'auto', borderRight: '1px dotted gray' }}>
+                                <p><b>Author: {post.user.firstName} {post.user.lastName}</b>  | <i>Posted on: {post.created.substring(0, post.created.indexOf('G'))}</i></p>
+                                <hr />
                                 <h2>{post.title}</h2>
                                 <h4>{post.description}</h4>
                                 <hr />
-                                <p>Created on: {post.created.substring(0, post.created.indexOf('G'))} <br />
-                                    {post.modified !== post.created ? 'Last Modified:' + post.modified.substring(0, post.created.indexOf('G')) :
-                                        'Not Modified'}</p>
+                                <p><i>{post.modified !== post.created ? 'Last Modified:' + post.modified.substring(0, post.created.indexOf('G')) :
+                                        'Not Modified'}</i></p>
                             </div>
+                            {this.props.location.pathname === '/profile' ?
+                                <ApolloConsumer>
+                                    {client => (
+                                        <Row>
+                                            <Col>
+                                                <Button variant="danger" style={{ width: '80%' }}
+                                                    onClick={async () => {
+                                                        const { data } = await client.mutate({
+                                                            mutation: REMOVE_POST,
+                                                            variables: {
+                                                                id: post.id
+                                                            }
+                                                        });
+                                                        console.log(data)
+                                                        var remainingPosts = this.props.posts.userPosts.filter((post) => {
+                                                            return post.id !== data.removePost.id
+                                                        })
+                                                        console.log(this.props.posts.posts)
+                                                        var totalRem = this.props.posts.posts.filter((post) => {
+                                                            
+                                                            return post.id !== data.removePost.id
+                                                        })
+                                                        this.props.DELETE_POST_ACTION(
+                                                            {
+                                                                userPosts: remainingPosts,
+                                                                allPosts: totalRem
+                                                            })
+                                                            console.log('Total Rem',totalRem, 'User Rem', remainingPosts)
+                                                    }}>Delete</Button>
+                                            </Col>
+                                            <Col>
+                                                <Button variant='info' style={{ width: '80%' }}> Edit </Button>
+                                            </Col>
+                                        </Row>
+                                    )}
+                                </ApolloConsumer> : <></>
+                            }
                         </Col>
                         <Col>
                             <h3>comments</h3>
@@ -59,7 +97,7 @@ class Posts extends Component {
                                             <Tooltip>Comment by <strong>{comment.user ? comment.user.firstName : ''}</strong></Tooltip>
                                         }
                                     >
-                                        <div key={comment.id} style={{ backgroundColor: '#dadada', marginBottom: '5px', borderRadius: '8px', border: '1px solid #dadada' }}>
+                                        <div key={comment.id} style={{ backgroundColor: '#dadada', marginBottom: '5px', borderRadius: '8px', border: '1px solid #b9b7b7' }}>
                                             <p style={{ padding: '4px' }}>{comment.text}</p>
                                         </div>
                                     </OverlayTrigger>
@@ -78,10 +116,11 @@ class Posts extends Component {
                                                     mutation: ADD_COMMENT,
                                                     variables: {
                                                         text: this.state.commentText,
-                                                        postid: "5cfd02dd061e8329180bef3f",
-                                                        user: "5cfd00a0061e8329180bef38"
+                                                        postid: post.id,
+                                                        userid: this.props.user.id
                                                     }
                                                 });
+                                                console.log(data);
                                             }
                                         }}
                                     >
@@ -108,4 +147,4 @@ class Posts extends Component {
     }
 
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Posts)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts))

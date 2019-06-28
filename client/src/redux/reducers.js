@@ -44,7 +44,8 @@ const initialStatePost = {
     loaded: false,
     posts: [],
     length: 0,
-    filter: ''
+    filter: '',
+    userPosts: []
 }
 
 export const postReducer = (state = initialStatePost, action) => {
@@ -57,11 +58,25 @@ export const postReducer = (state = initialStatePost, action) => {
                 loaded: true
             }
             break;
+        case 'LOAD_USER_POSTS':
+            state = {
+                ...state,
+                userPosts: action.payload,
+                loaded: true
+            }
+            break;
         case 'APPEND_POSTS':
             state = {
                 ...state,
                 posts: [...state.posts, action.payload],
                 length: state.length + action.payload.length,
+                loaded: true
+            }
+            break;
+        case 'APPEND_USER_POSTS':
+            state = {
+                ...state,
+                userPosts: [...state.userPosts, action.payload],
                 loaded: true
             }
             break;
@@ -75,6 +90,22 @@ export const postReducer = (state = initialStatePost, action) => {
             state = {
                 ...state,
                 filter: action.payload
+            }
+            break
+        case 'CLEAR':
+            state = {
+                loaded: false,
+                posts: [],
+                length: 0,
+                filter: '',
+                userPosts: []
+            }
+            break
+        case 'DELETE_POST':
+            state = {
+                ...state,
+                userPosts: action.payload.userPosts,
+                posts: action.payload.allPosts
             }
             break
         default:

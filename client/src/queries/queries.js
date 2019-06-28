@@ -102,6 +102,39 @@ const ADD_USER = gql`
     }
   }
 `
+const ADD_POST = gql`
+mutation($title: String!, $description: String!, $userid: String!){
+  addPost(title: $title, description: $description, userid: $userid){
+    id,
+    title,
+    description,
+    user{
+      id,
+      firstName,
+      lastName
+    }
+    comments{
+      id,
+      text,
+      user{
+        firstName,
+        lastName
+      }
+      created,
+      modified
+    }
+    created,
+    modified
+  }
+}
+`
+const REMOVE_POST = gql`
+  mutation($id: String!){
+	removePost(id: $id){
+    id
+  }
+}
+`
 export {
   GET_POSTS,
   GET_USER,
@@ -109,5 +142,7 @@ export {
   GET_PROFILE,
   GET_AUTHORIZARION,
   ADD_COMMENT,
-  ADD_USER
+  ADD_USER,
+  ADD_POST,
+  REMOVE_POST
 }

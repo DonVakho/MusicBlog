@@ -11,6 +11,7 @@ import { mapStateToProps, mapDispatchToProps } from '../redux/connectMaps'
 import { GET_POSTS } from '../queries/queries'
 import Posts from '../components/posts/Posts'
 import FooterPage from './Footer'
+import { Button } from 'react-bootstrap';
 
 
 class Home extends Component {
@@ -92,7 +93,6 @@ class Home extends Component {
                         }}
                     </Query>
                     <Posts posts={this.props.posts.posts.filter((post) => {
-                        console.log(post)
                         if (post.user.firstName.toLowerCase() === this.props.posts.filter.toLowerCase())
                             return true
                         if (post.user.lastName.toLowerCase() === this.props.posts.filter.toLowerCase())
@@ -101,6 +101,9 @@ class Home extends Component {
                             return true
                         return false
                     })} />
+                    {this.props.posts.filter !== ''?
+                    <Button variant="warning" style={{width: '100%', fontWeight: 'bold', fontSize: 'large', color:'black'}} onClick={()=>this.props.SEARCH_ACTION('')}>Undo Search</Button>
+                    :<></>}
                 </div>
                 <FooterPage />
             </>
