@@ -1,7 +1,7 @@
 //General Imports
 import React, { Component } from 'react'
 import { Query } from "react-apollo";
-import Carousel from 'react-bootstrap/Carousel'
+import { Carousel, Spinner } from 'react-bootstrap'
 
 //Redux Imports
 import { connect } from 'react-redux'
@@ -83,15 +83,22 @@ class Home extends Component {
                     </Carousel>
                 </div >
                 <div style={{ paddingLeft: '11%', paddingRight: '5%', paddingTop: '1%', width: '90%' }}>
-                    <Query query={GET_POSTS}>
-                        {({ loading, error, data }) => {
-                            if (loading) return <h3>...loading</h3>;
-                            if (error) return `Error! ${error}`;
-                            if (!this.props.posts.loaded)
+                    {!this.props.posts.loaded ?
+                        <Query query={GET_POSTS}>
+                            {({ loading, error, data }) => {
+                                if (loading) return (
+                                    <div style={{ paddingLeft: '47%' }}>
+                                        <Spinner animation="border" role="status" variant="primary">
+                                            <span className="sr-only">Loading...</span>
+                                        </Spinner>
+                                    </div>
+                                )
+                                if (error) return `Error! ${error}`;
                                 this.props.LOAD_POSTS_ACTION(data.posts)
-                            return <></>
-                        }}
-                    </Query>
+                                return <></>
+                            }}
+                        </Query> : <></>
+                    }
                     <Posts posts={this.props.posts.posts.filter((post) => {
                         if (post.user.firstName.toLowerCase() === this.props.posts.filter.toLowerCase())
                             return true
@@ -101,9 +108,9 @@ class Home extends Component {
                             return true
                         return false
                     })} />
-                    {this.props.posts.filter !== ''?
-                    <Button variant="warning" style={{width: '100%', fontWeight: 'bold', fontSize: 'large', color:'black'}} onClick={()=>this.props.SEARCH_ACTION('')}>Undo Search</Button>
-                    :<></>}
+                    {this.props.posts.filter !== '' ?
+                        <Button variant="warning" style={{ width: '100%', fontWeight: 'bold', fontSize: 'large', color: 'black' }} onClick={() => this.props.SEARCH_ACTION('')}>Undo Search</Button>
+                        : <></>}
                 </div>
                 <FooterPage />
             </>

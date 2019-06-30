@@ -7,5 +7,6 @@ export default styled.div`
     text-align: center;
     font-size:xx-large;
     font-weight: bolder;
-    color: white
+    color: white;
+    padding-top: 2%
 `

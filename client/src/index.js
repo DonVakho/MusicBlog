@@ -15,13 +15,25 @@ import store from './redux/store'
 import App from './components/App';
 import './index.css';
 
+const defaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
+  
 const cache = new InMemoryCache();
 const link = new HttpLink({
     uri: 'http://localhost:4000/entrance'
 })
 const client = new ApolloClient({
+    link,
     cache,
-    link
+    defaultOptions: defaultOptions
 })
 
 const rootElement = document.getElementById('root');

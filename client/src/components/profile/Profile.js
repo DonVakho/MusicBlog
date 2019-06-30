@@ -4,7 +4,8 @@ import { ApolloConsumer } from 'react-apollo'
 import { Query } from "react-apollo";
 import {
     Jumbotron,
-    Button
+    Button,
+    Spinner
 } from 'react-bootstrap'
 
 //***********************************************
@@ -37,16 +38,23 @@ export class Profile extends Component {
     render() {
         return (
             <>
-                <Query query={GET_PROFILE} variables={{ email: this.props.user.email }}>
-                    {({ loading, error, data }) => {
-                        if (loading) return <h3>...loading</h3>;
-                        if (error) return `Error! ${error}`;
-                        if (!this.props.posts.loaded)
+                {!this.props.posts.loaded ?
+                    <Query query={GET_PROFILE} variables={{ email: this.props.user.email }}>
+                        {({ loading, error, data }) => {
+                            if (loading) return (
+                                <div style={{ paddingLeft: '47%' }}>
+                                    <Spinner animation="border" role="status" variant="primary">
+                                        <span className="sr-only">Loading...</span>
+                                    </Spinner>
+                                </div>
+                            );
+                            if (error) return `Error! ${error}`;
                             this.props.LOAD_USER_POSTS_ACTION(data.user.posts)
-                        return <>
-                        </>
-                    }}
-                </Query>
+                            return <>
+                            </>
+                        }}
+                    </Query> : <></>
+                }
                 <ApolloConsumer>
                     {client => (
                         <div style={{ paddingTop: '5%', width: '80%', paddingLeft: '15%' }}>

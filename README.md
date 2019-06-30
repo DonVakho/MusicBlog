@@ -26,17 +26,17 @@ Guest can:
 
 Registered user can:
     all the above mentioned plus
-    comment on posts #FIX comments only appear after reloading, need to fix query refetch
+    comment on posts
     see profile and own posts
         enter profile by clicking on user name in navbar
         add psot
         delete post
-        #FIX edit not functioninc currently
+        #NEEDS_FIX edit not functioning currently
 
 main bugs:
-    1) after registration before login please refresh page there is a problem when 
+    1) after registration before login please refresh page there is a problem when #FIXED(also because of cache) 
     entering to profile page first time right after registration reason not know, on second enter it works 
-    2) authentication is based on redux store, after page refrehes data is lost and need to sing in again
-    3) updates to posts need to be sinchronized when moving between components
+    2) authentication is based on redux store, after page refrehes data is lost and need to sign in again
+    3) updates to posts need to be sinchronized when moving between components #FIXED (issue as suspected was in  caching, disabling cache solved sinchronization problem)
 
 probably there are more bugs at the moment please inform me if you find another bug.

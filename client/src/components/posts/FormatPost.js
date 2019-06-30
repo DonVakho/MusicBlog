@@ -46,7 +46,7 @@ class Posts extends Component {
                                 <h4>{post.description}</h4>
                                 <hr />
                                 <p><i>{post.modified !== post.created ? 'Last Modified:' + post.modified.substring(0, post.created.indexOf('G')) :
-                                        'Not Modified'}</i></p>
+                                    'Not Modified'}</i></p>
                             </div>
                             {this.props.location.pathname === '/profile' ?
                                 <ApolloConsumer>
@@ -67,7 +67,7 @@ class Posts extends Component {
                                                         })
                                                         console.log(this.props.posts.posts)
                                                         var totalRem = this.props.posts.posts.filter((post) => {
-                                                            
+
                                                             return post.id !== data.removePost.id
                                                         })
                                                         this.props.DELETE_POST_ACTION(
@@ -75,11 +75,19 @@ class Posts extends Component {
                                                                 userPosts: remainingPosts,
                                                                 allPosts: totalRem
                                                             })
-                                                            console.log('Total Rem',totalRem, 'User Rem', remainingPosts)
+                                                        console.log('Total Rem', totalRem, 'User Rem', remainingPosts)
                                                     }}>Delete</Button>
                                             </Col>
                                             <Col>
-                                                <Button variant='info' style={{ width: '80%' }}> Edit </Button>
+                                                <OverlayTrigger
+                                                    placement="right-start"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={
+                                                        <Tooltip><strong>Not Working yet</strong></Tooltip>
+                                                    }
+                                                >
+                                                    <Button variant='info' style={{ width: '80%' }}> Edit </Button>
+                                                </OverlayTrigger>
                                             </Col>
                                         </Row>
                                     )}
@@ -112,7 +120,7 @@ class Posts extends Component {
                                                 commentText: ''
                                             })
                                             if (this.state.commentText.length > 0) {
-                                                const { data } = await client.mutate({
+                                                await client.mutate({
                                                     mutation: ADD_COMMENT,
                                                     variables: {
                                                         text: this.state.commentText,
@@ -120,7 +128,7 @@ class Posts extends Component {
                                                         userid: this.props.user.id
                                                     }
                                                 });
-                                                console.log(data);
+                                                this.props.PREPARE_FOR_LOAD_ACTION();
                                             }
                                         }}
                                     >

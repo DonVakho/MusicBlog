@@ -220,6 +220,11 @@ const Mutation = new GraphQLObjectType({
                 if (!removedPost) {
                     throw new Error(`Couldn't find Post with id: ${args.id}`)
                 }
+                const removedComments = Comment.deleteMany({postid: args.id}).exec()
+                console.log(removedComments)
+                if(!removedComments){
+                    console.log('there were no comments for this post')
+                }
                 return removedPost;
             }
         },

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.form`
-  position: fixed;
+  position: relative;
   border-radius: 5px;
   background-color: rgba(25, 25, 25, 0.8);
   padding-top: 0%;
